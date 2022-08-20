@@ -1,6 +1,5 @@
 package com.hanghae99.samstargram_be.controller;
 
-//import com.hanghae99.samstargram_be.S3.S3Uploader;
 
 import com.hanghae99.samstargram_be.model.Article;
 import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
