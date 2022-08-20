@@ -1,6 +1,5 @@
 package com.hanghae99.samstargram_be.service;
 
-//import com.hanghae99.samstargram_be.S3.S3Uploader;
 import com.hanghae99.samstargram_be.model.Article;
 import com.hanghae99.samstargram_be.model.Member;
 import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
