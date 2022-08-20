@@ -58,4 +58,11 @@ public class Member {
 		this.password = password;
 		this.authority = authority;
 	}
+	public void addArticle(Article article){
+		this.articleList.add(article);
+	}
+
+	public void removeArticle(Article article) {
+		this.articleList.remove(article);
+	}
 }

@@ -3,6 +3,7 @@ package com.hanghae99.samstargram_be.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -50,6 +51,17 @@ public class Article {
 	private Boolean isLike = false;
 
 	private Boolean isMyArticles = false;
+
+	public Article(ArticleRequestDto articleRequestDto, Member member){
+		this.username = member.getUsername();
+		this.image = articleRequestDto.getImage();
+		this.content = articleRequestDto.getContent();
+	}
+
+	public void update(ArticleRequestDto articleRequestDto) {
+		this.image = articleRequestDto.getImage();
+		this.content = articleRequestDto.getContent();
+	}
 
 
 }
