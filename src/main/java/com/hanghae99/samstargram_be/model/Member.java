@@ -33,6 +33,7 @@ public class Member extends Timestamped {
 
 	private String userprofile;
 
+	@Column(unique = true)
 	private String socialId;
 
 
@@ -81,7 +82,7 @@ public class Member extends Timestamped {
 		this.password = encodedPassword;
 		this.useremail = googleEmail;
 		this.userprofile = userprofile;
-
+		this.authority = Authority.ROLE_USER;
 	}
 
 	public void addArticle(Article article){
