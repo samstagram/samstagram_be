@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/articles")
+@CrossOrigin(origins = "*", exposedHeaders = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class ArticleController {
 
@@ -27,6 +28,13 @@ public class ArticleController {
         page = page-1;
         return articleService.readArticleList(page, size);
     }
+
+    @GetMapping("/{articleId}")
+    public ArticleResponseDto readArticle(@PathVariable Long articleId){
+        return articleService.readArticle(articleId);
+    }
+
+
 
     @PutMapping("/{articleId}")
     public Long update(@PathVariable Long articleId,@RequestBody ArticleRequestDto articleRequestDto){

@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 //**
@@ -41,21 +42,21 @@ public class Member extends Timestamped {
 	private Authority authority;
 
 	@OneToMany(mappedBy = "member")
-	private List<Article> articleList;
+	private List<Article> articleList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "member")
-	private List<Comment> commentList;
+	private List<Comment> commentList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "member")
-	private List<Heart> heartList;
+	private List<Heart> heartList = new ArrayList<>();
 
 	@Column
 	@ElementCollection
-	private List<Long> followingList;
+	private List<Long> followingList = new ArrayList<>();
 
 	@Column
 	@ElementCollection
-	private List<Long> followersList;
+	private List<Long> followersList = new ArrayList<>();
 
 	private int followingCnt;
 	private int followersCnt;
