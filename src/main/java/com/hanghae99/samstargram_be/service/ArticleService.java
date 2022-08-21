@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -29,8 +31,22 @@ public class ArticleService {
 
   public Article createArticle(ArticleRequestDto articleRequestDto){
       Member member = memberService.getSinginUser();
+
       Article article = new Article(articleRequestDto, member);
-      member.addArticle(article);
+
+      article.setMyArticles(true);
+
+    String content = articleRequestDto.getContent();
+
+    List<String> stringList = Arrays.asList(content.split(" ")); // 띄어쓰기 기준으로 자름
+
+    for (String tag : stringList) {
+      if (tag.charAt(0) == '#') {
+        article.addHashtag(tag);
+      }
+    }
+
+    member.addArticle(article);
 
     article.setHeartCnt((int)(Math.random() * 8999+1000));
       article.addImage("https://cdn.pixabay.com/photo/2022/08/12/10/27/crows-7381423_960_720.jpg");
@@ -39,6 +55,7 @@ public class ArticleService {
       article.addImage("https://cdn.pixabay.com/photo/2022/08/16/04/52/jewel-7389356_960_720.jpg");
 
       articleRepository.save(article);
+
       return article;
   }
 
@@ -51,14 +68,11 @@ public class ArticleService {
     Page<Article> articleList = articleRepository.findAll(pageable);
     List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
     for (Article article : articleList){
-
       if(member.getUsername().equals(article.getUsername())){
-        article.setMyArticles(true);
-      }
-
-      articleResponseDtoList.add(new ArticleResponseDto(article));
+        System.out.println(article.getUsername());
+        articleResponseDtoList.add(new ArticleResponseDto(article, true));
+      }else articleResponseDtoList.add(new ArticleResponseDto(article));
     }
-
       return articleResponseDtoList;
   }
 

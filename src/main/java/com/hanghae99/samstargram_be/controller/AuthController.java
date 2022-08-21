@@ -55,10 +55,17 @@ public class AuthController {
 	@GetMapping("/oauth/google/callback")
 	public MemberResponseDto googleLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
 //		try { // 회원가입 진행 성공시
-			return customOAuth2UserService.googleLogin(code, response);
+		MemberResponseDto memberResponseDto = customOAuth2UserService.googleLogin(code, response);
 //		} catch (Exception e) { // 에러나면 false
 //			throw new IllegalArgumentException("구글 로그인에 실패하였습니다");
+		return memberResponseDto;
 		}
-	}
+
+//	@GetMapping("/social/user/islogin")
+//	public MemberResponseDto socialUserInfo(){
+//
+//	}
+
+}
 
 //}

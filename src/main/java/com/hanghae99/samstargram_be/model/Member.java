@@ -20,7 +20,7 @@ public class Member extends Timestamped {
 	@Id
 	@Column(name = "member_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long memberId;
 
 	@Column(nullable = false)
 	private String username;
@@ -29,10 +29,10 @@ public class Member extends Timestamped {
 	@JsonIgnore
 	private String password;
 
-	@Column(unique = true)
-	private String useremail;
+//	@Column(unique = true)
+	private String useremail = "sparta@gmail.com";
 
-	private String userprofile;
+	private String userprofile = "https://mblogthumb-phinf.pstatic.net/MjAyMDExMjRfOSAg/MDAxNjA2MjA1MDI5MzE1.FqSl8OtJxZxJm1IYKtRXrhFNum6Qfu5wMq7MAiZwhFgg.9RMA4C4GmAp8XFc04eqM6zuRfxrCcU1y7Z8fA2_NA38g.JPEG.sosohan_n/IMG_5374.JPG?type=w800";
 
 	@Column(unique = true)
 	private String socialId;

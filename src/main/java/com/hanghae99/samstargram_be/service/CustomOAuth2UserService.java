@@ -91,6 +91,10 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		body.add("redirect_uri", googleRedirectUri);
 		body.add("grant_type", "authorization_code");
 
+		System.out.println("코드가 머죵?");
+		System.out.println(code);
+		System.out.println("코드가 머죵?");
+
 		// POST 요청 보내기
 		HttpEntity<MultiValueMap<String, String>> googleToken = new HttpEntity<>(body, headers);
 		RestTemplate restTemplate = new RestTemplate();

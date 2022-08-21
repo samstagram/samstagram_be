@@ -24,16 +24,32 @@ public class ArticleResponseDto {
     private Boolean isMyArticles = false;
 
     public ArticleResponseDto(Article article){
-        this.articlesId = article.getId();
+        this.articlesId = article.getArticlesId();
         this.createdAt = article.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분"));
         this.username = article.getUsername();
         this.useremail = article.getUseremail();
         this.userprofile = article.getUserprofile();
         this.content = article.getContent();
-        this.image = article.getImageList();
+        this.image = article.getImage();
         this.commentCnt = article.getCommentList().size();
-        this.likeCnt = article.getHeartList().size();
+//        this.likeCnt = article.getHeartList().size();
+        this.likeCnt = article.getLikeCnt();
         this.hashtagList = article.getHashtagList();
+    }
+
+    public ArticleResponseDto(Article article, Boolean isMyArticles){
+        this.articlesId = article.getArticlesId();
+        this.createdAt = article.getCreatedAt().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분"));
+        this.username = article.getUsername();
+        this.useremail = article.getUseremail();
+        this.userprofile = article.getUserprofile();
+        this.content = article.getContent();
+        this.image = article.getImage();
+        this.commentCnt = article.getCommentList().size();
+//        this.likeCnt = article.getHeartList().size();
+        this.likeCnt = article.getLikeCnt();
+        this.hashtagList = article.getHashtagList();
+        this.isMyArticles = isMyArticles;
     }
 
     public void setLike(Boolean like) {

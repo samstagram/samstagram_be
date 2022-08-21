@@ -20,7 +20,7 @@ public class Article extends Timestamped {
 	@Id
 	@Column(name = "member_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long articlesId;
 
 	@Column(nullable = false)
 	private String username;
@@ -34,7 +34,7 @@ public class Article extends Timestamped {
 
 	@Column
 	@ElementCollection
-	private List<String> imageList = new ArrayList<>();
+	private List<String> image = new ArrayList<>();
 
 	@ManyToOne
 	@JsonBackReference
@@ -42,6 +42,7 @@ public class Article extends Timestamped {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@JsonIgnore
 	private List<Comment> commentList = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL)
@@ -53,7 +54,7 @@ public class Article extends Timestamped {
 	private List<String> hashtagList = new ArrayList<>();
 
 	private int commentCnt;
-	private int heartCnt;
+	private int likeCnt;
 
 	private Boolean isLike = false;
 
@@ -61,21 +62,27 @@ public class Article extends Timestamped {
 
 	public Article(ArticleRequestDto articleRequestDto, Member member){
 		this.username = member.getUsername();
-		this.imageList = articleRequestDto.getImage();
+		this.useremail = member.getUseremail();
+		this.userprofile = member.getUserprofile();
+		this.image = articleRequestDto.getImage();
 		this.content = articleRequestDto.getContent();
 	}
 
 	public void update(ArticleRequestDto articleRequestDto) {
-		this.imageList = articleRequestDto.getImage();
+		this.image = articleRequestDto.getImage();
 		this.content = articleRequestDto.getContent();
 	}
 
 	public void addImage(String image){
-		this.imageList.add(image);
+		this.image.add(image);
+	}
+
+	public void addHashtag(String hashtag){
+		this.hashtagList.add(hashtag);
 	}
 
 	public void setHeartCnt(int heartCnt) {
-		this.heartCnt = heartCnt;
+		this.likeCnt = heartCnt;
 	}
 
 	public void setLike(Boolean like) {
