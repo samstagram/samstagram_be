@@ -34,8 +34,6 @@ public class ArticleController {
         return articleService.readArticle(articleId);
     }
 
-
-
     @PutMapping("/{articleId}")
     public Long update(@PathVariable Long articleId,@RequestBody ArticleRequestDto articleRequestDto){
         articleService.update(articleId,articleRequestDto);
@@ -46,6 +44,4 @@ public class ArticleController {
         articleService.deleteArticle(articleId);
         return articleId;
     }
-
-
 }

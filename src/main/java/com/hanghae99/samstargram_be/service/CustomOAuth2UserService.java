@@ -221,44 +221,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
 		String token = tokenDto.getAccessToken();
 		System.out.println(token);
-		response.addHeader("Authorization", "Bearer " + token);
-		return "Bearer " + token;
+
+		response.addHeader("Authorization", "Bearer" + " " + token);
+		return "Bearer" + " " + token;
 	}
 
 	private MemberResponseDto dto(Member member, String jwt){
 		return new MemberResponseDto(member, jwt);
-	}
-
-
-
-	/*------------------------------------책에 나온 내용----------------------------------------------*/
-
-	@Override
-	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-		OAuth2UserService delegate = new DefaultOAuth2UserService();
-		OAuth2User oAuth2User = delegate.loadUser(userRequest);
-
-		String registrationId = userRequest.getClientRegistration().getRegistrationId();
-		String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
-				.getUserInfoEndpoint().getUserNameAttributeName();
-
-		OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-
-		Member member = saveOrUpdate(attributes);
-		httpSession.setAttribute("member", new SessionUser(member));
-
-		return new DefaultOAuth2User(
-				Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
-				attributes.getAttributes(),
-				attributes.getNameAttributeKey());
-	}
-
-
-	private Member saveOrUpdate(OAuthAttributes attributes) {
-		Member member = memberRepository.findByUseremail(attributes.getUseremail())
-				.map(entity->entity.update(attributes.getUsername(), attributes.getUserprofile()))
-				.orElse(attributes.toEntity());
-
-		return memberRepository.save(member);
 	}
 }
