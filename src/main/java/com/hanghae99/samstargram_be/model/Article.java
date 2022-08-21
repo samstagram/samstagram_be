@@ -3,6 +3,8 @@ package com.hanghae99.samstargram_be.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
+import com.hanghae99.samstargram_be.service.Timestamped;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "article")
 @Entity
-public class Article {
+public class Article extends Timestamped {
 	@Id
 	@Column(name = "member_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,11 +47,23 @@ public class Article {
 	@JsonIgnore
 	private List<Heart> heartList;
 
-	private Long heartCnt;
+	private int commentCnt;
+	private int heartCnt;
 
 	private Boolean isLike = false;
 
 	private Boolean isMyArticles = false;
+
+	public Article(ArticleRequestDto articleRequestDto, Member member){
+		this.username = member.getUsername();
+		this.image = articleRequestDto.getImage();
+		this.content = articleRequestDto.getContent();
+	}
+
+	public void update(ArticleRequestDto articleRequestDto) {
+		this.image = articleRequestDto.getImage();
+		this.content = articleRequestDto.getContent();
+	}
 
 
 }

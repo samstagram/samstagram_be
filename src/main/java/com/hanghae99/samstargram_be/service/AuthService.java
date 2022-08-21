@@ -4,10 +4,7 @@ package com.hanghae99.samstargram_be.service;
 
 import com.hanghae99.samstargram_be.model.Member;
 import com.hanghae99.samstargram_be.model.RefreshToken;
-import com.hanghae99.samstargram_be.model.dto.MemberRequestDto;
-import com.hanghae99.samstargram_be.model.dto.MemberResponseDto;
-import com.hanghae99.samstargram_be.model.dto.TokenDto;
-import com.hanghae99.samstargram_be.model.dto.TokenRequestDto;
+import com.hanghae99.samstargram_be.model.dto.*;
 import com.hanghae99.samstargram_be.repository.MemberRepository;
 import com.hanghae99.samstargram_be.repository.RefreshTokenRepository;
 import com.hanghae99.samstargram_be.security.jwt.TokenProvider;
@@ -32,7 +29,7 @@ public class AuthService {
 	private final RefreshTokenRepository refreshTokenRepository;
 
 	@Transactional
-	public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
+	public MemberNameResponseDto signup(MemberRequestDto memberRequestDto) {
 		if(!(Pattern.matches("[a-zA-Z0-9]*$",memberRequestDto.getUsername()) && (memberRequestDto.getUsername().length() > 3 && memberRequestDto.getUsername().length() <13)
 				&& Pattern.matches("[a-zA-Z0-9]*$",memberRequestDto.getPassword()) && (memberRequestDto.getPassword().length() > 3 && memberRequestDto.getPassword().length() <33))){
 			throw new IllegalArgumentException("닉네임 혹은 비밀번호 조건을 확인해주세요.");
@@ -42,7 +39,7 @@ public class AuthService {
 		} else if (!memberRequestDto.getPassword().equals(memberRequestDto.getPassword2()))
 			throw new IllegalArgumentException("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
 		Member member = memberRequestDto.toMember(passwordEncoder);
-		return MemberResponseDto.of(memberRepository.save(member));
+		return MemberNameResponseDto.of(memberRepository.save(member));
 	}
 
 	@Transactional

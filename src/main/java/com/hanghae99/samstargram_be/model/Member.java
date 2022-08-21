@@ -1,6 +1,7 @@
 package com.hanghae99.samstargram_be.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hanghae99.samstargram_be.service.Timestamped;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @Table(name = "member")
 @Entity
-public class Member {
+public class Member extends Timestamped {
 
 	@Id
 	@Column(name = "member_id")
@@ -27,10 +28,14 @@ public class Member {
 	@JsonIgnore
 	private String password;
 
-	@Column(nullable = false, unique = true)
+	@Column(unique = true)
 	private String useremail;
 
 	private String userprofile;
+
+	@Column(unique = true)
+	private String socialId;
+
 
 	@Enumerated(EnumType.STRING)
 	private Authority authority;
@@ -46,16 +51,52 @@ public class Member {
 
 	@Column
 	@ElementCollection
-	private List<Long> followList;
+	private List<Long> followingList;
 
 	@Column
 	@ElementCollection
-	private List<Long> followerList;
+	private List<Long> followersList;
+
+	private int followingCnt;
+	private int followersCnt;
+
+	@Builder
+	public Member(String username, String password, String useremail, String userprofile, Authority authority) {
+		this.username = username;
+		this.password = password;
+		this.useremail = useremail;
+		this.userprofile = userprofile;
+		this.authority = authority;
+	}
 
 	@Builder
 	public Member(String username, String password, Authority authority) {
 		this.username = username;
 		this.password = password;
 		this.authority = authority;
+	}
+
+	public Member(String googleEmail, String username, String encodedPassword, String userprofile, String socialId) {
+		this.socialId = socialId;
+		this.username = username;
+		this.password = encodedPassword;
+		this.useremail = googleEmail;
+		this.userprofile = userprofile;
+		this.authority = Authority.ROLE_USER;
+	}
+
+	public void addArticle(Article article){
+		this.articleList.add(article);
+	}
+
+	public void removeArticle(Article article) {
+		this.articleList.remove(article);
+	}
+
+	public Member update(String username, String userprofile){
+		this.username = username;
+		this.userprofile = userprofile;
+
+		return this;
 	}
 }

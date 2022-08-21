@@ -23,6 +23,8 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	public static final String AUTHORIZATION_HEADER = "Authorization";
 	public static final String BEARER_PREFIX = "Bearer ";
+	public static final String COOKIE_HEADER = "Cookie";
+	public static final String JWT_PREFIX = "jwt=";
 
 	private final TokenProvider tokenProvider;
 
@@ -52,9 +54,19 @@ public class JwtFilter extends OncePerRequestFilter {
 
 	private String resolveToken(HttpServletRequest request) {
 		String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
-			return bearerToken.substring(7);
+		String cookie = request.getHeader(COOKIE_HEADER);
+
+
+		if (bearerToken != null){
+			if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+				return bearerToken.substring(BEARER_PREFIX.length());
+			}
 		}
+
+		if (StringUtils.hasText(cookie) && cookie.startsWith(JWT_PREFIX)) {
+			return cookie.substring(JWT_PREFIX.length());
+		}
+
 		return null;
 	}
 }
