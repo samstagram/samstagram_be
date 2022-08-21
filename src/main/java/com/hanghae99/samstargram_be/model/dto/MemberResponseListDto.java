@@ -1,7 +1,9 @@
 package com.hanghae99.samstargram_be.model.dto;
 
 import com.hanghae99.samstargram_be.model.Member;
+import lombok.Getter;
 
+@Getter
 public class MemberResponseListDto {
 	private Long memberId;
 	private String username;
@@ -10,10 +12,13 @@ public class MemberResponseListDto {
 	private Boolean isFollow = false;
 
 	public MemberResponseListDto(Member member) {
-		this.memberId = memberId;
-		this.username = username;
-		this.useremail = useremail;
-		this.userprofile = userprofile;
-		this.isFollow = isFollow;
+		this.memberId = member.getId();
+		this.username = member.getUsername();
+		this.useremail = member.getUseremail();
+		this.userprofile = member.getUserprofile();
+	}
+
+	public void setFollow(Boolean follow) {
+		isFollow = follow;
 	}
 }

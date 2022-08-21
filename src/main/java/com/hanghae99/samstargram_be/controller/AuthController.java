@@ -32,7 +32,7 @@ public class AuthController {
 	public TokenDto login(@RequestBody MemberRequestDto memberRequestDto, HttpServletResponse httpServletResponse) {
 		TokenDto tokenDto = authService.login(memberRequestDto);
 		httpServletResponse.setHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
-		Cookie jwt = new Cookie("Bearer ",  tokenDto.getAccessToken());
+		Cookie jwt = new Cookie("jwt",  tokenDto.getAccessToken());
 		jwt.setMaxAge(1000 * 60 * 60 * 12);
 		httpServletResponse.addCookie(jwt);
 		return tokenDto;
