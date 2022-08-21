@@ -37,7 +37,7 @@ public class ArticleService {
 
     public List<ArticleResponseDto> readArticleList(int page, int size){
       Sort.Direction direction = Sort.Direction.DESC;
-      Sort sort = Sort.by(direction, "creatAt");
+      Sort sort = Sort.by(direction);
       Pageable pageable = PageRequest.of(page, size, sort);
       Page<Article> articleList = articleRepository.findAll(pageable);
       List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
