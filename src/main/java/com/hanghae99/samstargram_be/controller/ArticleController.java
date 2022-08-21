@@ -23,8 +23,9 @@ public class ArticleController {
     }
 
     @GetMapping("")
-    public List<ArticleResponseDto> getArticle(){
-        return articleService.getArticle();
+    public List<ArticleResponseDto> readArticleList(@RequestParam("page") int page, @RequestParam("size") int size){
+        page = page-1;
+        return articleService.readArticleList(page, size);
     }
 
     @PutMapping("/{articleId}")

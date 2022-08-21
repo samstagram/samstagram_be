@@ -7,6 +7,10 @@ import com.hanghae99.samstargram_be.model.dto.ArticleResponseDto;
 import com.hanghae99.samstargram_be.repository.ArticleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,17 +29,20 @@ public class ArticleService {
 
     public Article createArticle(ArticleRequestDto articleRequestDto){
         Member member = memberService.getSinginUser();
-        Article article = new Article(articleRequestDto,member);
+        Article article = new Article(articleRequestDto, member);
         member.addArticle(article);
         articleRepository.save(article);
         return article;
     }
 
-    public List<ArticleResponseDto> getArticle(){
-        List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
-        List<Article> article = articleRepository.findAll();
-        for (Article article1 : article)
-            articleResponseDtoList.add(new ArticleResponseDto(article1));
+    public List<ArticleResponseDto> readArticleList(int page, int size){
+      Sort.Direction direction = Sort.Direction.DESC;
+      Sort sort = Sort.by(direction, "creatAt");
+      Pageable pageable = PageRequest.of(page, size, sort);
+      Page<Article> articleList = articleRepository.findAll(pageable);
+      List<ArticleResponseDto> articleResponseDtoList = new ArrayList<>();
+      for (Article article : articleList)
+            articleResponseDtoList.add(new ArticleResponseDto(article));
         return articleResponseDtoList;
     }
 
@@ -54,5 +61,4 @@ public class ArticleService {
         member.removeArticle(article);
         articleRepository.delete(article);
     }
-
 }
