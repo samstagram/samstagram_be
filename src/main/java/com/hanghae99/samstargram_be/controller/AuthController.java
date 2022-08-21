@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 //**
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*", exposedHeaders = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class AuthController {
 	private final AuthService authService;

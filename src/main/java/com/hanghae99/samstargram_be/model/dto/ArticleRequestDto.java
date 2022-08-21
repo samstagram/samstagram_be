@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -14,9 +14,6 @@ import java.util.List;
 @Getter
 @Setter
 public class ArticleRequestDto {
-
-    private List<String> image;
+    private List<String> image = new ArrayList<>();
     private String content;
-
-
 }

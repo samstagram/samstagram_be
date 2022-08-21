@@ -30,10 +30,6 @@ public class AuthService {
 
 	@Transactional
 	public MemberNameResponseDto signup(MemberRequestDto memberRequestDto) {
-		if(!(Pattern.matches("[a-zA-Z0-9]*$",memberRequestDto.getUsername()) && (memberRequestDto.getUsername().length() > 3 && memberRequestDto.getUsername().length() <13)
-				&& Pattern.matches("[a-zA-Z0-9]*$",memberRequestDto.getPassword()) && (memberRequestDto.getPassword().length() > 3 && memberRequestDto.getPassword().length() <33))){
-			throw new IllegalArgumentException("닉네임 혹은 비밀번호 조건을 확인해주세요.");
-		}
 		if (memberRepository.existsByUsername(memberRequestDto.getUsername())) {
 			throw new IllegalArgumentException("중복된 닉네임입니다.");
 		} else if (!memberRequestDto.getPassword().equals(memberRequestDto.getPassword2()))

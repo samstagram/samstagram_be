@@ -56,10 +56,6 @@ public class JwtFilter extends OncePerRequestFilter {
 		String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
 		String cookie = request.getHeader(COOKIE_HEADER);
 
-		System.out.println("---------");
-		System.out.println(bearerToken);
-		System.out.println("---------");
-
 		if (bearerToken != null){
 			if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
 				return bearerToken.substring(BEARER_PREFIX.length());

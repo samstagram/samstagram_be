@@ -139,6 +139,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
 		JsonNode jsonNode = objectMapper.readTree(responseBody);
 
+		System.out.println(jsonNode);
 
 		String socialId = jsonNode.get("sub").asText();
 		String useremail = jsonNode.get("email").asText();
@@ -161,7 +162,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		System.out.println(username);
 		System.out.println("----4----");
 
-		// 카카오에서 이미지 가져오기
+		// 구글에서 이미지 가져오기
 		String userprofile = jsonNode.get("picture").asText();
 		String googleDefaultImg = "https://hanghae99-8d-tm.s3.ap-northeast-2.amazonaws.com/defaultImage.png";
 		String defaultImage = "https://hanghae99-8d-tm.s3.ap-northeast-2.amazonaws.com/defaultImage.png";
@@ -220,44 +221,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
 		String token = tokenDto.getAccessToken();
 		System.out.println(token);
+
 		response.addHeader("Authorization", "Bearer" + " " + token);
 		return "Bearer" + " " + token;
 	}
 
 	private MemberResponseDto dto(Member member, String jwt){
 		return new MemberResponseDto(member, jwt);
-	}
-
-
-
-	/*------------------------------------책에 나온 내용----------------------------------------------*/
-
-	@Override
-	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
-		OAuth2UserService delegate = new DefaultOAuth2UserService();
-		OAuth2User oAuth2User = delegate.loadUser(userRequest);
-
-		String registrationId = userRequest.getClientRegistration().getRegistrationId();
-		String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails()
-				.getUserInfoEndpoint().getUserNameAttributeName();
-
-		OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
-
-		Member member = saveOrUpdate(attributes);
-		httpSession.setAttribute("member", new SessionUser(member));
-
-		return new DefaultOAuth2User(
-				Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")),
-				attributes.getAttributes(),
-				attributes.getNameAttributeKey());
-	}
-
-
-	private Member saveOrUpdate(OAuthAttributes attributes) {
-		Member member = memberRepository.findByUseremail(attributes.getUseremail())
-				.map(entity->entity.update(attributes.getUsername(), attributes.getUserprofile()))
-				.orElse(attributes.toEntity());
-
-		return memberRepository.save(member);
 	}
 }

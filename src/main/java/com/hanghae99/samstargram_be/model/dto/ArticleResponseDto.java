@@ -17,12 +17,11 @@ public class ArticleResponseDto {
     private String userprofile;
     private String content;
     private List<String> image;
-    private List<Comment> comment;
-    private List<Heart> heartList;
-    private int heartCnt;
-    //private List<String> hashtagList;
-    private Boolean isLike;
-    private Boolean isMyArticles;
+    private int commentCnt;
+    private int likeCnt;
+    private List<String> hashtagList;
+    private Boolean isLike = false;
+    private Boolean isMyArticles = false;
 
     public ArticleResponseDto(Article article){
         this.articlesId = article.getId();
@@ -31,12 +30,17 @@ public class ArticleResponseDto {
         this.useremail = article.getUseremail();
         this.userprofile = article.getUserprofile();
         this.content = article.getContent();
-        this.image = article.getImage();
-        this.comment = article.getCommentList();
-        this.heartList = article.getHeartList();
-        this.heartCnt = article.getHeartCnt();
-        //this.hashtagList = article
-        this.isLike = article.getIsLike();
-        this.isMyArticles = article.getIsMyArticles();
+        this.image = article.getImageList();
+        this.commentCnt = article.getCommentList().size();
+        this.likeCnt = article.getHeartList().size();
+        this.hashtagList = article.getHashtagList();
+    }
+
+    public void setLike(Boolean like) {
+        isLike = like;
+    }
+
+    public void setMyArticles(Boolean myArticles) {
+        isMyArticles = myArticles;
     }
 }
