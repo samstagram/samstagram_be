@@ -1,6 +1,7 @@
 package com.hanghae99.samstargram_be.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.hanghae99.samstargram_be.service.Timestamped;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "comment")
 @Entity
-public class Comment {
+public class Comment extends Timestamped {
 
 	@Id
 	@Column(name = "member_id")

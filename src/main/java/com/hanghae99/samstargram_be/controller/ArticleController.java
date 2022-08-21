@@ -11,28 +11,28 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api/articles")
 @RequiredArgsConstructor
-
 public class ArticleController {
 
     private final ArticleService articleService;
 
-    @PostMapping("/api/articles")
+    @PostMapping("")
     public Article createArticle(@RequestBody ArticleRequestDto articleRequestDto){
         return articleService.createArticle(articleRequestDto);
     }
 
-    @GetMapping("/api/articles")
+    @GetMapping("")
     public List<ArticleResponseDto> getArticle(){
         return articleService.getArticle();
     }
 
-    @PutMapping("/api/articles/{articleId}")
+    @PutMapping("/{articleId}")
     public Long update(@PathVariable Long articleId,@RequestBody ArticleRequestDto articleRequestDto){
         articleService.update(articleId,articleRequestDto);
         return articleId;
     }
-    @DeleteMapping("/api/articles/{articleId}")
+    @DeleteMapping("/{articleId}")
     public Long delete(@PathVariable Long articleId){
         articleService.deleteArticle(articleId);
         return articleId;
