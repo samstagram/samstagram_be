@@ -2,10 +2,8 @@ package com.hanghae99.samstargram_be.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.hanghae99.samstargram_be.model.dto.MemberRequestDto;
-import com.hanghae99.samstargram_be.model.dto.MemberResponseDto;
-import com.hanghae99.samstargram_be.model.dto.TokenDto;
-import com.hanghae99.samstargram_be.model.dto.TokenRequestDto;
+import com.hanghae99.samstargram_be.model.Member;
+import com.hanghae99.samstargram_be.model.dto.*;
 import com.hanghae99.samstargram_be.service.AuthService;
 import com.hanghae99.samstargram_be.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +24,7 @@ public class AuthController {
 	private final CustomOAuth2UserService customOAuth2UserService;
 
 	@PostMapping("/signup")
-	public ResponseEntity<MemberResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
+	public ResponseEntity<MemberNameResponseDto> signup(@RequestBody MemberRequestDto memberRequestDto) {
 		return ResponseEntity.ok(authService.signup(memberRequestDto));
 	}
 
@@ -53,4 +51,13 @@ public class AuthController {
 		return ResponseEntity.ok(authService.reissue(tokenRequestDto));
 	}
 
-}
+	@GetMapping("/oauth/google/callback")
+	public MemberResponseDto googleLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
+//		try { // 회원가입 진행 성공시
+			return customOAuth2UserService.googleLogin(code, response);
+//		} catch (Exception e) { // 에러나면 false
+//			throw new IllegalArgumentException("구글 로그인에 실패하였습니다");
+		}
+	}
+
+//}
