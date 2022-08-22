@@ -6,9 +6,11 @@ import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
 import com.hanghae99.samstargram_be.model.dto.ArticleResponseDto;
 import com.hanghae99.samstargram_be.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,16 +21,10 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
-    private final S3Uploader s3Uploader;
 
-    @PostMapping("")
-    public Article createArticle(@RequestBody ArticleRequestDto articleRequestDto){
-        return articleService.createArticle(articleRequestDto);
-    }
-
-    @PostMapping("/image/{articleId}")
-    public String upload(@PathVariable Long articleId, MultipartFile multipartFile, String dirName) throws IOException {
-        return s3Uploader.upload(articleId, multipartFile, "img");
+    @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public Article createArticle(@Valid @RequestPart(value = "dto") ArticleRequestDto articleRequestDto, @RequestPart(required = false) List<MultipartFile> multipartFile) throws IOException {
+        return articleService.createArticle(articleRequestDto, multipartFile);
     }
 
     @GetMapping("")

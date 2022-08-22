@@ -15,6 +15,5 @@ import java.util.List;
 @Getter
 @Setter
 public class ArticleRequestDto {
-    private List<String> image = new ArrayList<>();
     private String content;
 }

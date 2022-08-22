@@ -64,12 +64,10 @@ public class Article extends Timestamped {
 		this.username = member.getUsername();
 		this.useremail = member.getUseremail();
 		this.userprofile = member.getUserprofile();
-		this.image = articleRequestDto.getImage();
 		this.content = articleRequestDto.getContent();
 	}
 
 	public void update(ArticleRequestDto articleRequestDto) {
-		this.image = articleRequestDto.getImage();
 		this.content = articleRequestDto.getContent();
 	}
 
@@ -91,5 +89,9 @@ public class Article extends Timestamped {
 
 	public void setMyArticles(Boolean myArticles) {
 		isMyArticles = myArticles;
+	}
+
+	public void setImage(List<String> image) {
+		this.image = image;
 	}
 }

@@ -13,7 +13,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -26,13 +28,19 @@ public class ArticleService {
 
  //   private final S3Uploader s3Uploader;
   private final ArticleRepository articleRepository;
-
   private final MemberService memberService;
+  private final S3Uploader s3Uploader;
 
-  public Article createArticle(ArticleRequestDto articleRequestDto){
+  public Article createArticle(ArticleRequestDto articleRequestDto, List<MultipartFile> multipartFile) throws IOException {
+
       Member member = memberService.getSinginUser();
 
       Article article = new Article(articleRequestDto, member);
+
+    if(multipartFile != null){
+      List<String> stringList = s3Uploader.upload(multipartFile, "img");
+      article.setImage(stringList);
+    }
 
       article.setMyArticles(true);
 
@@ -49,6 +57,7 @@ public class ArticleService {
     member.addArticle(article);
 
     article.setHeartCnt((int)(Math.random() * 8999+1000));
+      article.addImage("https://cdn.pixabay.com/photo/2022/08/12/10/27/crows-7381423_960_720.jpg");
       article.addImage("https://cdn.pixabay.com/photo/2022/08/12/10/27/crows-7381423_960_720.jpg");
       article.addImage("https://cdn.pixabay.com/photo/2022/07/15/20/13/strawberries-7323943_960_720.jpg");
       article.addImage("https://cdn.pixabay.com/photo/2022/07/23/10/48/daisies-7339735_960_720.jpg");
