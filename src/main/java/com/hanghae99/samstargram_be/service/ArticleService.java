@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class ArticleService {
 
       Article article = new Article(articleRequestDto, member);
 
-    if(multipartFile != null){
+    if(multipartFile.size() > 0){
       List<String> stringList = s3Uploader.upload(multipartFile, "img");
       article.setImage(stringList);
     }
@@ -57,11 +58,6 @@ public class ArticleService {
     member.addArticle(article);
 
     article.setHeartCnt((int)(Math.random() * 8999+1000));
-      article.addImage("https://cdn.pixabay.com/photo/2022/08/12/10/27/crows-7381423_960_720.jpg");
-      article.addImage("https://cdn.pixabay.com/photo/2022/08/12/10/27/crows-7381423_960_720.jpg");
-      article.addImage("https://cdn.pixabay.com/photo/2022/07/15/20/13/strawberries-7323943_960_720.jpg");
-      article.addImage("https://cdn.pixabay.com/photo/2022/07/23/10/48/daisies-7339735_960_720.jpg");
-      article.addImage("https://cdn.pixabay.com/photo/2022/08/16/04/52/jewel-7389356_960_720.jpg");
 
       articleRepository.save(article);
 
@@ -113,6 +109,13 @@ public class ArticleService {
 
       member.removeArticle(article);
       articleRepository.delete(article);
+  }
+
+  public void testData() {
+    for(int i=0; i<100; i++){
+      Article article = new Article();
+      articleRepository.save(article);
+    }
   }
 
 

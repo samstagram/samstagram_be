@@ -31,4 +31,14 @@ public class MemberResponseDto {
 		this.followersCnt = member.getFollowersCnt();
 		this.jwt = jwt;
 	}
+
+	public MemberResponseDto(Member member) {
+		this.memberId = member.getMemberId();
+		this.socialId = member.getSocialId();
+		this.username = member.getUsername();
+		this.useremail = member.getUseremail();
+		this.userprofile = member.getUserprofile();
+		this.followingCnt = member.getFollowingCnt();
+		this.followersCnt = member.getFollowersCnt();
+	}
 }

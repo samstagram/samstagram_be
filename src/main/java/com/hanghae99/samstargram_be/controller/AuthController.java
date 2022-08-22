@@ -6,6 +6,7 @@ import com.hanghae99.samstargram_be.model.Member;
 import com.hanghae99.samstargram_be.model.dto.*;
 import com.hanghae99.samstargram_be.service.AuthService;
 import com.hanghae99.samstargram_be.service.CustomOAuth2UserService;
+import com.hanghae99.samstargram_be.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 public class AuthController {
 	private final AuthService authService;
+
+	private final MemberService memberService;
 	private final CustomOAuth2UserService customOAuth2UserService;
 
 	@PostMapping("/signup")
@@ -60,12 +63,6 @@ public class AuthController {
 //			throw new IllegalArgumentException("구글 로그인에 실패하였습니다");
 		return customOAuth2UserService.googleLogin(code, response);
 		}
-
-//	@GetMapping("/social/user/islogin")
-//	public MemberResponseDto socialUserInfo(){
-//
-//	}
-
 }
 
 //}

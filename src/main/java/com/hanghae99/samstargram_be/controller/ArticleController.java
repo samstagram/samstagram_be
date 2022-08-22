@@ -49,5 +49,9 @@ public class ArticleController {
         return articleId;
     }
 
-
+    @PostMapping
+    public String testData(){
+        articleService.testData();
+        return "테스트 데이터 생성";
+    }
 }

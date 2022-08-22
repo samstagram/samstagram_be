@@ -100,4 +100,22 @@ public class Member extends Timestamped {
 
 		return this;
 	}
+
+	public void addFolloing(Long folloingId){
+		this.followingList.add(folloingId);
+		this.followingCnt = this.followingList.size();
+	}
+	public void removeFolloing(Long folloingId){
+		this.followingList.remove(folloingId);
+		this.followingCnt = this.followingList.size();
+	}
+	public void addFollower(Long followerId){
+		this.followersList.add(followerId);
+		this.followersCnt = this.followersList.size();
+	}
+	public void removeFollower(Long followerId){
+		this.followersList.remove(followerId);
+		this.followersCnt = this.followersList.size();
+	}
+
 }
