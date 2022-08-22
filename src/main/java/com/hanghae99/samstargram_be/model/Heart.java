@@ -26,4 +26,9 @@ public class Heart extends Timestamped {
 	@JsonBackReference
 	private Article article;
 
+
+	public Heart(Member member, Article article) {
+		this.member = member;
+		this.article = article;
+	}
 }

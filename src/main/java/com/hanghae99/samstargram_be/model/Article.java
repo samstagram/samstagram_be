@@ -7,6 +7,7 @@ import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
 import com.hanghae99.samstargram_be.service.Timestamped;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -67,6 +68,13 @@ public class Article extends Timestamped {
 		this.content = articleRequestDto.getContent();
 	}
 
+	public Article(Member member){
+		this.username = member.getUsername();
+		this.useremail = member.getUseremail();
+		this.userprofile = member.getUserprofile();
+		this.content = (Math.random() * 8999999+1000000) + "명";
+	}
+
 	public void update(ArticleRequestDto articleRequestDto) {
 		this.content = articleRequestDto.getContent();
 	}
@@ -89,6 +97,24 @@ public class Article extends Timestamped {
 
 	public void setMyArticles(Boolean myArticles) {
 		isMyArticles = myArticles;
+	}
+
+	public void addComment(Comment comment) {
+		this.commentList.add(comment);
+		this.commentCnt = this.getCommentList().size();
+	}
+	public void removeComment(Comment comment) {
+		this.commentList.remove(comment);
+		this.commentCnt = this.getCommentList().size();
+	}
+
+	public void addHeart(Heart heart){
+		this.heartList.add(heart);
+		this.likeCnt = this.heartList.size();
+	}
+	public void removeHeart(Heart heart){
+		this.heartList.remove(heart);
+		this.likeCnt = this.heartList.size();
 	}
 
 	public void setImage(List<String> image) {

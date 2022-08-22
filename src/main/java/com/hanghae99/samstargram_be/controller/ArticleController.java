@@ -23,7 +23,7 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @PostMapping(value = "", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-    public Article createArticle(@Valid @RequestPart(value = "dto") ArticleRequestDto articleRequestDto, @RequestPart(required = false) List<MultipartFile> multipartFile) throws IOException {
+    public ArticleResponseDto createArticle(@Valid @RequestPart(value = "dto") ArticleRequestDto articleRequestDto, @RequestPart(required = false) List<MultipartFile> multipartFile) throws IOException {
         return articleService.createArticle(articleRequestDto, multipartFile);
     }
 
@@ -38,16 +38,16 @@ public class ArticleController {
         return articleService.readArticle(articleId);
     }
 
-    @PutMapping("/{articleId}")
+    @PatchMapping("/{articleId}")
     public Long update(@PathVariable Long articleId,@RequestBody ArticleRequestDto articleRequestDto){
-        articleService.update(articleId,articleRequestDto);
-        return articleId;
+        return articleService.update(articleId,articleRequestDto);
     }
     @DeleteMapping("/{articleId}")
     public Long delete(@PathVariable Long articleId){
-        articleService.deleteArticle(articleId);
-        return articleId;
+        return articleService.deleteArticle(articleId);
     }
+
+    /*--------------------------------------------------------*/
 
     @PostMapping
     public String testData(){
@@ -55,3 +55,23 @@ public class ArticleController {
         return "테스트 데이터 생성";
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

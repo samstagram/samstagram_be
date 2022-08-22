@@ -117,5 +117,18 @@ public class Member extends Timestamped {
 		this.followersList.remove(followerId);
 		this.followersCnt = this.followersList.size();
 	}
+	public void addComment(Comment comment) {
+		this.commentList.add(comment);
+	}
+	public void removeComment(Comment comment) {
+		this.commentList.remove(comment);
+	}
+
+	public void addHeart(Heart heart){
+		this.heartList.add(heart);
+	}
+	public void removeHeart(Heart heart){
+		this.heartList.remove(heart);
+	}
 
 }

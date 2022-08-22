@@ -40,6 +40,7 @@ public class AuthController {
 		jwt.setMaxAge(1000 * 60 * 60 * 12);
 		httpServletResponse.addCookie(jwt);
 		return tokenDto;
+
 	}
 
 	@PostMapping("/logout")
@@ -57,7 +58,6 @@ public class AuthController {
 
 	@GetMapping("/oauth/google/callback")
 	public MemberResponseDto googleLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
-		System.out.println("11::" + code);
 //		try { // 회원가입 진행 성공시
 		//		} catch (Exception e) { // 에러나면 false
 //			throw new IllegalArgumentException("구글 로그인에 실패하였습니다");

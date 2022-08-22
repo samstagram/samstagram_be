@@ -52,7 +52,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 	private final TokenProvider tokenProvider;
 
 	public MemberResponseDto googleLogin(String code, HttpServletResponse response) throws JsonProcessingException {
-		System.out.println("12::" + code);
+		System.out.println("클라에서 넘겨준 code : " + code);
 
 		// 1. 인가코드로 엑세스토큰 가져오기
 		System.out.println("구글 로그인 1번 접근");
@@ -94,15 +94,13 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		body.add("redirect_uri", googleRedirectUri);
 		body.add("grant_type", "authorization_code");
 
-		System.out.println("코드가 머죵?");
-		System.out.println(code);
-		System.out.println("코드가 머죵?");
-		System.out.println(body.get("client_id"));
-		System.out.println(body.get("client_secret"));
-		System.out.println(body.get("code"));
-		System.out.println(body.get("redirect_uri"));
-		System.out.println(body.get("grant_type"));
-		System.out.println(headers);
+		System.out.println("-------헤바--------");
+		System.out.println("해더 Content-type: "+headers.get("Content-type"));
+		System.out.println("바디 client_id: "+body.get("client_id"));
+		System.out.println("바디 client_secret: "+body.get("client_secret"));
+		System.out.println("바디 code: "+body.get("code"));
+		System.out.println("바디 redirect_uri: "+body.get("redirect_uri"));
+		System.out.println("바디 grant_type: "+body.get("grant_type"));
 
 		// POST 요청 보내기
 		HttpEntity<MultiValueMap<String, String>> googleToken = new HttpEntity<>(body, headers);
@@ -118,9 +116,9 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		String responseBody = response.getBody();
 		ObjectMapper objectMapper = new ObjectMapper();
 		JsonNode responseToken = objectMapper.readTree(responseBody);
-		System.out.println("-----1-----");
-		System.out.println(responseToken);
-		System.out.println("-----1-----");
+
+		System.out.println("토큰 : "+responseToken);
+
 		return responseToken.get("access_token").asText();
 	}
 
@@ -133,9 +131,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 		System.out.println("getGoogleUserInfo + 헤더까지는 받음 헤더 : " +headers);  //#
 
-		System.out.println("----2----");
-		System.out.println(accessToken);
-		System.out.println("----2----");
 
 		// POST 요청 보내기
 		HttpEntity<MultiValueMap<String, String>> googleUser = new HttpEntity<>(headers);
@@ -157,23 +152,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		String socialId = jsonNode.get("sub").asText();
 		String useremail = jsonNode.get("email").asText();
 
-		System.out.println("----3----");
-		System.out.println(socialId);
-		System.out.println(useremail);
-		System.out.println("----3----");
-
-		//username 랜덤
-		Random rnd = new Random();
-		String rdNick="";
-		for (int i = 0; i < 8; i++) {
-			rdNick += String.valueOf(rnd.nextInt(10));
-		}
 //		String username = "G" + "_" + rdNick;
 		String username = jsonNode.get("name").asText();
-
-		System.out.println("----4----");
-		System.out.println(username);
-		System.out.println("----4----");
 
 		// 구글에서 이미지 가져오기
 		String userprofile = jsonNode.get("picture").asText();
@@ -181,12 +161,6 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		String defaultImage = "https://hanghae99-8d-tm.s3.ap-northeast-2.amazonaws.com/defaultImage.png";
 		if (userprofile==null || userprofile.equals(googleDefaultImg))
 			userprofile = defaultImage; // 우리 사이트 기본 이미지
-
-		System.out.println("----5----");
-		System.out.println(userprofile);
-		System.out.println(googleDefaultImg);
-		System.out.println(defaultImage);
-		System.out.println("----5----");
 
 		return new SocialUserInfoDto(socialId, username, useremail, userprofile);
 	}
@@ -205,13 +179,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 			String password = UUID.randomUUID().toString();
 			String userprofile = googleUserInfo.getUserprofile();
 
-			System.out.println("--0---");
-			System.out.println(socialId);
-			System.out.println("---0--");
-
 			googleUser = new Member(googleEmail, username, password, userprofile, socialId);
 
-			System.out.println("여기" + googleUser.getSocialId());
 			memberRepository.save(googleUser);
 		}
 
