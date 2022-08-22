@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 //**
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*", exposedHeaders = "*", allowedHeaders = "*")
 @RequiredArgsConstructor
 public class AuthController {
 	private final AuthService authService;
@@ -53,11 +54,18 @@ public class AuthController {
 
 	@GetMapping("/oauth/google/callback")
 	public MemberResponseDto googleLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
+		System.out.println("11::" + code);
 //		try { // 회원가입 진행 성공시
-			return customOAuth2UserService.googleLogin(code, response);
-//		} catch (Exception e) { // 에러나면 false
+		//		} catch (Exception e) { // 에러나면 false
 //			throw new IllegalArgumentException("구글 로그인에 실패하였습니다");
+		return customOAuth2UserService.googleLogin(code, response);
 		}
-	}
+
+//	@GetMapping("/social/user/islogin")
+//	public MemberResponseDto socialUserInfo(){
+//
+//	}
+
+}
 
 //}

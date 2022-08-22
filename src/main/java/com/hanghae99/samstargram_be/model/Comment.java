@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Comment extends Timestamped {
 
 	@Id
-	@Column(name = "member_id")
+	@Column(name = "comment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 

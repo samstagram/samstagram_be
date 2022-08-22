@@ -52,6 +52,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 	private final TokenProvider tokenProvider;
 
 	public MemberResponseDto googleLogin(String code, HttpServletResponse response) throws JsonProcessingException {
+		System.out.println("12::" + code);
 
 		// 1. 인가코드로 엑세스토큰 가져오기
 		System.out.println("구글 로그인 1번 접근");
@@ -79,6 +80,8 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
 	// 1. 인가코드로 엑세스토큰 가져오기
 	private String getAccessToken(String code) throws JsonProcessingException {
+		System.out.println("13::" + code);
+
 		// 헤더에 Content-type 지정
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
@@ -90,6 +93,16 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 		body.add("code", code);
 		body.add("redirect_uri", googleRedirectUri);
 		body.add("grant_type", "authorization_code");
+
+		System.out.println("코드가 머죵?");
+		System.out.println(code);
+		System.out.println("코드가 머죵?");
+		System.out.println(body.get("client_id"));
+		System.out.println(body.get("client_secret"));
+		System.out.println(body.get("code"));
+		System.out.println(body.get("redirect_uri"));
+		System.out.println(body.get("grant_type"));
+		System.out.println(headers);
 
 		// POST 요청 보내기
 		HttpEntity<MultiValueMap<String, String>> googleToken = new HttpEntity<>(body, headers);

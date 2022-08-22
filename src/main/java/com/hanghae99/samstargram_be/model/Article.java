@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,9 +18,9 @@ import java.util.List;
 @Entity
 public class Article extends Timestamped {
 	@Id
-	@Column(name = "member_id")
+	@Column(name = "article_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long articlesId;
 
 	@Column(nullable = false)
 	private String username;
@@ -33,7 +34,7 @@ public class Article extends Timestamped {
 
 	@Column
 	@ElementCollection
-	private List<String> image;
+	private List<String> image = new ArrayList<>();
 
 	@ManyToOne
 	@JsonBackReference
@@ -41,14 +42,19 @@ public class Article extends Timestamped {
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JsonManagedReference
-	private List<Comment> commentList;
+	@JsonIgnore
+	private List<Comment> commentList = new ArrayList<>();
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<Heart> heartList;
+	private List<Heart> heartList = new ArrayList<>();
+
+	@Column
+	@ElementCollection
+	private List<String> hashtagList = new ArrayList<>();
 
 	private int commentCnt;
-	private int heartCnt;
+	private int likeCnt;
 
 	private Boolean isLike = false;
 
@@ -56,6 +62,8 @@ public class Article extends Timestamped {
 
 	public Article(ArticleRequestDto articleRequestDto, Member member){
 		this.username = member.getUsername();
+		this.useremail = member.getUseremail();
+		this.userprofile = member.getUserprofile();
 		this.image = articleRequestDto.getImage();
 		this.content = articleRequestDto.getContent();
 	}
@@ -65,5 +73,23 @@ public class Article extends Timestamped {
 		this.content = articleRequestDto.getContent();
 	}
 
+	public void addImage(String image){
+		this.image.add(image);
+	}
 
+	public void addHashtag(String hashtag){
+		this.hashtagList.add(hashtag);
+	}
+
+	public void setHeartCnt(int heartCnt) {
+		this.likeCnt = heartCnt;
+	}
+
+	public void setLike(Boolean like) {
+		isLike = like;
+	}
+
+	public void setMyArticles(Boolean myArticles) {
+		isMyArticles = myArticles;
+	}
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="hanghae99-spring-8d-5-mini" uuid="6621ec32-4314-4a80-b2d6-1d73969dc133">
+    <data-source source="LOCAL" name="sparta99-samstargram-be" uuid="5f390ae9-0853-4c59-8be4-e17a07bfd343">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://hanghae99-spring-8d-5-mini.carrehlqszma.ap-northeast-2.rds.amazonaws.com:3306/hanghaemini</jdbc-url>
+      <jdbc-url>jdbc:mysql://sparta99-samstargram-be.carrehlqszma.ap-northeast-2.rds.amazonaws.com:3306/samstargram</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

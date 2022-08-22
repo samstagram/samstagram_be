@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 //**
@@ -19,7 +20,7 @@ public class Member extends Timestamped {
 	@Id
 	@Column(name = "member_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long memberId;
 
 	@Column(nullable = false)
 	private String username;
@@ -28,10 +29,10 @@ public class Member extends Timestamped {
 	@JsonIgnore
 	private String password;
 
-	@Column(unique = true)
-	private String useremail;
+//	@Column(unique = true)
+	private String useremail = "sparta@gmail.com";
 
-	private String userprofile;
+	private String userprofile = "https://mblogthumb-phinf.pstatic.net/MjAyMDExMjRfOSAg/MDAxNjA2MjA1MDI5MzE1.FqSl8OtJxZxJm1IYKtRXrhFNum6Qfu5wMq7MAiZwhFgg.9RMA4C4GmAp8XFc04eqM6zuRfxrCcU1y7Z8fA2_NA38g.JPEG.sosohan_n/IMG_5374.JPG?type=w800";
 
 	@Column(unique = true)
 	private String socialId;
@@ -41,21 +42,21 @@ public class Member extends Timestamped {
 	private Authority authority;
 
 	@OneToMany(mappedBy = "member")
-	private List<Article> articleList;
+	private List<Article> articleList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "member")
-	private List<Comment> commentList;
+	private List<Comment> commentList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "member")
-	private List<Heart> heartList;
+	private List<Heart> heartList = new ArrayList<>();
 
 	@Column
 	@ElementCollection
-	private List<Long> followingList;
+	private List<Long> followingList = new ArrayList<>();
 
 	@Column
 	@ElementCollection
-	private List<Long> followersList;
+	private List<Long> followersList = new ArrayList<>();
 
 	private int followingCnt;
 	private int followersCnt;

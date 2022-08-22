@@ -22,7 +22,7 @@ public class MemberResponseDto {
 
 
 	public MemberResponseDto(Member member, String jwt) {
-		this.memberId = member.getId();
+		this.memberId = member.getMemberId();
 		this.socialId = member.getSocialId();
 		this.username = member.getUsername();
 		this.useremail = member.getUseremail();

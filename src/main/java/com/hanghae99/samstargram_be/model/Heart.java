@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Heart extends Timestamped {
 
 	@Id
-	@Column(name = "member_id")
+	@Column(name = "heart_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 

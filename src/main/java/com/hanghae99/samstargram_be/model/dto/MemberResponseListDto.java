@@ -12,7 +12,7 @@ public class MemberResponseListDto {
 	private Boolean isFollow = false;
 
 	public MemberResponseListDto(Member member) {
-		this.memberId = member.getId();
+		this.memberId = member.getMemberId();
 		this.username = member.getUsername();
 		this.useremail = member.getUseremail();
 		this.userprofile = member.getUserprofile();
