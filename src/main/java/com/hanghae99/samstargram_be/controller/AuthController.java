@@ -2,13 +2,13 @@ package com.hanghae99.samstargram_be.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.hanghae99.samstargram_be.model.Member;
-import com.hanghae99.samstargram_be.model.dto.*;
+import com.hanghae99.samstargram_be.model.dto.MemberNameResponseDto;
+import com.hanghae99.samstargram_be.model.dto.MemberRequestDto;
+import com.hanghae99.samstargram_be.model.dto.TokenDto;
+import com.hanghae99.samstargram_be.model.dto.TokenRequestDto;
 import com.hanghae99.samstargram_be.service.AuthService;
 import com.hanghae99.samstargram_be.service.CustomOAuth2UserService;
-import com.hanghae99.samstargram_be.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

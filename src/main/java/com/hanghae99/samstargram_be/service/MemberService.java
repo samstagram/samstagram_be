@@ -79,4 +79,35 @@ public class MemberService {
 			return new MemberResponseListDto(singinUser);
 		}
 	}
+
+
+	/*--------------------------------------------------------*/
+
+	public void testMemberData() {
+
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

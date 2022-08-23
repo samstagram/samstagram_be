@@ -137,4 +137,8 @@ public class Member extends Timestamped {
 	public void setGcode(Gcode gcode) {
 		this.gcode = gcode;
 	}
+
+	public void setUserprofile(String userprofile) {
+		this.userprofile = userprofile;
+	}
 }

@@ -3,6 +3,8 @@ package com.hanghae99.samstargram_be.controller;
 
 import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
 import com.hanghae99.samstargram_be.model.dto.ArticleResponseDto;
+import com.hanghae99.samstargram_be.model.dto.IsLikeRequestDto;
+import com.hanghae99.samstargram_be.model.dto.IsLikeResponseDto;
 import com.hanghae99.samstargram_be.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -12,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -38,7 +41,7 @@ public class ArticleController {
     }
 
     @GetMapping("/search")
-    public List<ArticleResponseDto> readSearchArticleList(@RequestParam("hashtag") String hashtag){
+    public Set<ArticleResponseDto> readSearchArticleList(@RequestParam("hashtag") String hashtag){
         return articleService.readSearchArticleList(hashtag);
     }
 
@@ -47,6 +50,12 @@ public class ArticleController {
     public Long update(@PathVariable Long articleId,@RequestBody ArticleRequestDto articleRequestDto){
         return articleService.update(articleId,articleRequestDto);
     }
+
+    @PatchMapping("")
+    private IsLikeResponseDto articleHeart(@RequestBody IsLikeRequestDto isLikeRequestDto){
+        return articleService.articleHeart(isLikeRequestDto);
+    }
+
     @DeleteMapping("/{articleId}")
     public Long delete(@PathVariable Long articleId){
         return articleService.deleteArticle(articleId);
@@ -55,8 +64,8 @@ public class ArticleController {
     /*--------------------------------------------------------*/
 
     @PostMapping("/test/data/samstar")
-    public String testData(){
-        articleService.testData();
+    public String testArticleData(){
+        articleService.testArticleData();
         return "테스트 데이터 생성";
     }
 }
