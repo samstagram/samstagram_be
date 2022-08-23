@@ -17,7 +17,7 @@ public class Comment extends Timestamped {
 	@Id
 	@Column(name = "comment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long commentId;
+	private Long commentsId;
 
 	@Column(nullable = false)
 	private String username;

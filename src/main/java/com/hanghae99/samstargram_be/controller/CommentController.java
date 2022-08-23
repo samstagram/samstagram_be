@@ -1,6 +1,7 @@
 package com.hanghae99.samstargram_be.controller;
 
 import com.hanghae99.samstargram_be.model.Comment;
+import com.hanghae99.samstargram_be.model.dto.CommentListDto;
 import com.hanghae99.samstargram_be.model.dto.CommentRequestDto;
 import com.hanghae99.samstargram_be.model.dto.CommentResponseDto;
 import com.hanghae99.samstargram_be.service.CommentService;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@RequestMapping("/api/comment")
+@RequestMapping("/api/comments")
 @CrossOrigin(origins = "*", exposedHeaders = "*", allowedHeaders = "*")
 @RestController
 public class CommentController {
@@ -18,7 +19,7 @@ public class CommentController {
 	private final CommentService commentService;
 
 	@GetMapping("/{articleId}")
-	public List<CommentResponseDto> readCommentList(@PathVariable Long articleId){
+	public CommentListDto readCommentList(@PathVariable Long articleId){
 		return commentService.readCommentList(articleId);
 	}
 
