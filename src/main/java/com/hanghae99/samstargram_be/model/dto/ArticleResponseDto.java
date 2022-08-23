@@ -26,6 +26,8 @@ public class ArticleResponseDto {
     private Boolean isLike = false;
     private Boolean isMyArticles = false;
 
+    private List<Comment> commentList;
+
     public ArticleResponseDto(Article article){
         this.articlesId = article.getArticlesId();
         this.createdAt = article.getCreatedAt();
@@ -38,6 +40,7 @@ public class ArticleResponseDto {
 //        this.likeCnt = article.getHeartList().size();
         this.likeCnt = article.getLikeCnt();
         this.hashtagList = article.getHashtagList();
+        this.commentList = article.getCommentList();
     }
 
     public ArticleResponseDto(Article article, Boolean isMyArticles){

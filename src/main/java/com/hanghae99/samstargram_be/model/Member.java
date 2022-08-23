@@ -50,6 +50,9 @@ public class Member extends Timestamped {
 	@OneToMany(mappedBy = "member")
 	private List<Heart> heartList = new ArrayList<>();
 
+	@OneToOne
+	private Gcode gcode;
+
 	@Column
 	@ElementCollection
 	private List<Long> followingList = new ArrayList<>();
@@ -131,4 +134,7 @@ public class Member extends Timestamped {
 		this.heartList.remove(heart);
 	}
 
+	public void setGcode(Gcode gcode) {
+		this.gcode = gcode;
+	}
 }

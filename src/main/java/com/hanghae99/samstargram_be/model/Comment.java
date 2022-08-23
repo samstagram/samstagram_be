@@ -45,4 +45,16 @@ public class Comment extends Timestamped {
 		this.member = member;
 		this.article = article;
 	}
+	public Comment (Article article, Member member){
+		this.username = member.getUsername();
+		this.useremail = member.getUseremail();
+		this.userprofile = member.getUserprofile();
+		this.content = "좋아요~♡";
+		this.member = member;
+		this.article = article;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 }

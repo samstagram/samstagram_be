@@ -19,7 +19,7 @@ public class HeartService {
 	public IsLike articleHeart(Long articleId) {
 		Member member = memberService.getSinginUser();
 		Article article = articleRepository.findById(articleId)
-				.orElseThrow(()-> new NullPointerException("해당 게시물이 존재하지 않습니다."));
+				.orElseThrow(()-> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
 		IsLike isLike = new IsLike();
 
 		if (heartRepository.findByMemberAndArticle(member, article) == null){

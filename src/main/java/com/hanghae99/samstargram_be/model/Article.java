@@ -30,7 +30,6 @@ public class Article extends Timestamped {
 
 	private String userprofile;
 
-	@Column(nullable = false)
 	private String content;
 
 	@Column
@@ -120,4 +119,10 @@ public class Article extends Timestamped {
 	public void setImage(List<String> image) {
 		this.image = image;
 	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 }
+
+

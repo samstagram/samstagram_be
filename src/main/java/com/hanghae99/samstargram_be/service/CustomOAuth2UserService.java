@@ -3,8 +3,10 @@ package com.hanghae99.samstargram_be.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hanghae99.samstargram_be.model.Gcode;
 import com.hanghae99.samstargram_be.model.Member;
 import com.hanghae99.samstargram_be.model.dto.*;
+import com.hanghae99.samstargram_be.repository.GcodeRepository;
 import com.hanghae99.samstargram_be.repository.MemberRepository;
 import com.hanghae99.samstargram_be.security.UserDetailsImpl;
 import com.hanghae99.samstargram_be.security.jwt.TokenProvider;
@@ -48,33 +50,34 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 	@Value("${spring.security.oauth2.client.registration.google.redirect-uri}")
 	String googleRedirectUri;
 	private final MemberRepository memberRepository;
+	private final GcodeRepository gcodeRepository;
 	private final HttpSession httpSession;
 	private final TokenProvider tokenProvider;
 
-	public MemberResponseDto googleLogin(String code, HttpServletResponse response) throws JsonProcessingException {
-		System.out.println("클라에서 넘겨준 code : " + code);
+	public Boolean googleLogin(String code, HttpServletResponse response) throws JsonProcessingException {
 
-		// 1. 인가코드로 엑세스토큰 가져오기
-		System.out.println("구글 로그인 1번 접근");
-		String accessToken = getAccessToken(code);
+		if(!gcodeRepository.existsByGcode(code)){
+			System.out.println("구글 로그인 1번 접근");
+			String accessToken = getAccessToken(code);
 
 //		 2. 엑세스토큰으로 유저정보 가져오기
-		System.out.println("구글 로그인 2번 접근");
-		SocialUserInfoDto googleUserInfo = getGoogleUserInfo(accessToken);
+			System.out.println("구글 로그인 2번 접근");
+			SocialUserInfoDto googleUserInfo = getGoogleUserInfo(accessToken);
 //
-		// 3. 유저확인 & 회원가입
-		System.out.println("구글 로그인 3번 접근");
-		Member foundUser = getUser(googleUserInfo);
+			// 3. 유저확인 & 회원가입
+			System.out.println("구글 로그인 3번 접근");
+			Member foundUser = getUser(googleUserInfo);
 //
-		// 4. 시큐리티 강제 로그인
-		System.out.println("구글 로그인 4번 접근");
-		Authentication authentication = securityLogin(foundUser);
+			// 4. 시큐리티 강제 로그인
+			System.out.println("구글 로그인 4번 접근");
+			Authentication authentication = securityLogin(foundUser);
 
-		// 5. jwt 토큰 발급
-		System.out.println("구글 로그인 5번 접근");
-		String jwt = jwtToken(authentication, response);
-
-		return dto(foundUser, jwt);
+			// 5. jwt 토큰 발급
+			System.out.println("구글 로그인 5번 접근");
+			String jwt = jwtToken(authentication, response);
+			return true;
+		}
+		return true;
 	}
 
 

@@ -1,7 +1,6 @@
 package com.hanghae99.samstargram_be.controller;
 
 
-import com.hanghae99.samstargram_be.model.Article;
 import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
 import com.hanghae99.samstargram_be.model.dto.ArticleResponseDto;
 import com.hanghae99.samstargram_be.service.ArticleService;
@@ -38,6 +37,12 @@ public class ArticleController {
         return articleService.readArticle(articleId);
     }
 
+    @GetMapping("/search")
+    public List<ArticleResponseDto> readSearchArticleList(@RequestParam("hashtag") String hashtag){
+        return articleService.readSearchArticleList(hashtag);
+    }
+
+
     @PatchMapping("/{articleId}")
     public Long update(@PathVariable Long articleId,@RequestBody ArticleRequestDto articleRequestDto){
         return articleService.update(articleId,articleRequestDto);
@@ -49,7 +54,7 @@ public class ArticleController {
 
     /*--------------------------------------------------------*/
 
-    @PostMapping
+    @PostMapping("/test/data/samstar")
     public String testData(){
         articleService.testData();
         return "테스트 데이터 생성";

@@ -13,5 +13,4 @@ public class SamstargramBeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SamstargramBeApplication.class, args);
 	}
-
 }
