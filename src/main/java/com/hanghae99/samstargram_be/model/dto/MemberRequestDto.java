@@ -3,11 +3,11 @@ package com.hanghae99.samstargram_be.model.dto;
 
 import com.hanghae99.samstargram_be.model.Authority;
 import com.hanghae99.samstargram_be.model.Member;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.Random;
 
 
 //**

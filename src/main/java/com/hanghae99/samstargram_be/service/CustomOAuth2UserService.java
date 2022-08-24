@@ -3,7 +3,6 @@ package com.hanghae99.samstargram_be.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hanghae99.samstargram_be.model.Gcode;
 import com.hanghae99.samstargram_be.model.Member;
 import com.hanghae99.samstargram_be.model.dto.*;
 import com.hanghae99.samstargram_be.repository.GcodeRepository;
@@ -35,7 +34,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
-import java.util.Random;
 import java.util.UUID;
 
 //**/*

@@ -1,7 +1,6 @@
 package com.hanghae99.samstargram_be.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hanghae99.samstargram_be.model.Comment;
 import lombok.Getter;
 

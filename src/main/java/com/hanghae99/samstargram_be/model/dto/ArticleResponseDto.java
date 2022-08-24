@@ -2,12 +2,9 @@ package com.hanghae99.samstargram_be.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.hanghae99.samstargram_be.model.Article;
-import com.hanghae99.samstargram_be.model.Comment;
-import com.hanghae99.samstargram_be.model.Heart;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter

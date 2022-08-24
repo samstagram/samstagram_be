@@ -2,19 +2,14 @@ package com.hanghae99.samstargram_be.service;
 
 
 import com.hanghae99.samstargram_be.model.Member;
-import com.hanghae99.samstargram_be.model.dto.MemberResponseDto;
 import com.hanghae99.samstargram_be.model.dto.MemberResponseListDto;
 import com.hanghae99.samstargram_be.repository.MemberRepository;
-import com.hanghae99.samstargram_be.security.SecurityUtil;
-import com.sun.xml.bind.v2.TODO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 //**

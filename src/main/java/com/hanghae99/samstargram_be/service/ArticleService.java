@@ -1,10 +1,7 @@
 package com.hanghae99.samstargram_be.service;
 
 import com.hanghae99.samstargram_be.model.*;
-import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
-import com.hanghae99.samstargram_be.model.dto.ArticleResponseDto;
-import com.hanghae99.samstargram_be.model.dto.IsLikeRequestDto;
-import com.hanghae99.samstargram_be.model.dto.IsLikeResponseDto;
+import com.hanghae99.samstargram_be.model.dto.*;
 import com.hanghae99.samstargram_be.repository.ArticleRepository;
 import com.hanghae99.samstargram_be.repository.HeartRepository;
 import com.hanghae99.samstargram_be.repository.MemberRepository;
@@ -16,7 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -108,6 +104,16 @@ public class ArticleService {
    return articleResponseDto;
   }
 
+  public List<ArticleSearchDto> readTagArticleList() {
+    List<Article> articleList = articleRepository.findAllByOrderByCreatedAtDesc();
+    List<ArticleSearchDto> articleSearchDtoList = new ArrayList<>();
+
+    for (Article article : articleList){
+      articleSearchDtoList.add(new ArticleSearchDto(article));
+    }
+    return articleSearchDtoList;
+  }
+
   public Set<ArticleResponseDto> readSearchArticleList(String hashtag) {
     List<Article> allByHashtagList = articleRepository.findAll();
     System.out.println("해시태그~"+hashtag);
@@ -137,28 +143,29 @@ public class ArticleService {
 
   @Transactional
   public IsLikeResponseDto articleHeart(IsLikeRequestDto isLikeRequestDto) {
+
     Member member = memberService.getSinginUser();
+
     Article article = articleRepository.findById(isLikeRequestDto.getArticlesId())
         .orElseThrow(()-> new IllegalArgumentException("해당 게시물이 존재하지 않습니다."));
+
     IsLikeResponseDto isLike = new IsLikeResponseDto(article);
 
+    Heart heart;
     if (isLikeRequestDto.getIsLike()){
-      Heart heart = new Heart(member,article);
+      heart = new Heart(member, article);
       member.addHeart(heart);
       article.addHeart(heart);
       heartRepository.save(heart);
-      isLike.setIsLike(isLikeRequestDto.getIsLike());
-      isLike.setLikeCnt(article.getHeartList().size());
-      return isLike;
     }else {
-      Heart heart = heartRepository.findByMemberAndArticle(member, article);
+      heart = heartRepository.findByMemberAndArticle(member, article);
       member.removeHeart(heart);
       article.removeHeart(heart);
       heartRepository.delete(heart);
-      isLike.setIsLike(isLikeRequestDto.getIsLike());
-      isLike.setLikeCnt(article.getHeartList().size());
-      return isLike;
     }
+    isLike.setIsLike(isLikeRequestDto.getIsLike());
+    isLike.setLikeCnt(article.getHeartList().size());
+    return isLike;
   }
 
   public Long deleteArticle (Long articleId){
@@ -229,6 +236,8 @@ public class ArticleService {
         articleRepository.save(article);
     }
   }
+
+
 }
 
 

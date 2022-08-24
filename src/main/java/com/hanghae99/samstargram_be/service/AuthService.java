@@ -1,10 +1,12 @@
 package com.hanghae99.samstargram_be.service;
 
 
-
 import com.hanghae99.samstargram_be.model.Member;
 import com.hanghae99.samstargram_be.model.RefreshToken;
-import com.hanghae99.samstargram_be.model.dto.*;
+import com.hanghae99.samstargram_be.model.dto.MemberNameResponseDto;
+import com.hanghae99.samstargram_be.model.dto.MemberRequestDto;
+import com.hanghae99.samstargram_be.model.dto.TokenDto;
+import com.hanghae99.samstargram_be.model.dto.TokenRequestDto;
 import com.hanghae99.samstargram_be.repository.MemberRepository;
 import com.hanghae99.samstargram_be.repository.RefreshTokenRepository;
 import com.hanghae99.samstargram_be.security.jwt.TokenProvider;
@@ -15,8 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.regex.Pattern;
 
 //**
 @Service

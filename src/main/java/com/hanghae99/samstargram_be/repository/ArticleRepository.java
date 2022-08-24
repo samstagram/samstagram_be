@@ -10,4 +10,5 @@ import java.util.List;
 public interface ArticleRepository extends JpaRepository<Article,Long> {
 	@Override
 	Page<Article> findAll(Pageable pageable);
+	List<Article> findAllByOrderByCreatedAtDesc();
 }

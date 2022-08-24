@@ -3,12 +3,9 @@ package com.hanghae99.samstargram_be.controller;
 import com.hanghae99.samstargram_be.model.Comment;
 import com.hanghae99.samstargram_be.model.dto.CommentListDto;
 import com.hanghae99.samstargram_be.model.dto.CommentRequestDto;
-import com.hanghae99.samstargram_be.model.dto.CommentResponseDto;
 import com.hanghae99.samstargram_be.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/comments")

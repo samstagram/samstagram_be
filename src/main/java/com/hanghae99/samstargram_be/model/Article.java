@@ -7,7 +7,6 @@ import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
 import com.hanghae99.samstargram_be.service.Timestamped;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;

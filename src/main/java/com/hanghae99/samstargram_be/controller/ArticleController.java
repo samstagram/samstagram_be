@@ -1,10 +1,7 @@
 package com.hanghae99.samstargram_be.controller;
 
 
-import com.hanghae99.samstargram_be.model.dto.ArticleRequestDto;
-import com.hanghae99.samstargram_be.model.dto.ArticleResponseDto;
-import com.hanghae99.samstargram_be.model.dto.IsLikeRequestDto;
-import com.hanghae99.samstargram_be.model.dto.IsLikeResponseDto;
+import com.hanghae99.samstargram_be.model.dto.*;
 import com.hanghae99.samstargram_be.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -38,6 +35,11 @@ public class ArticleController {
     @GetMapping("/{articleId}")
     public ArticleResponseDto readArticle(@PathVariable Long articleId){
         return articleService.readArticle(articleId);
+    }
+
+    @GetMapping("/hashtag")
+    public List<ArticleSearchDto> readTagArticleList(){
+        return articleService.readTagArticleList();
     }
 
     @GetMapping("/search")
