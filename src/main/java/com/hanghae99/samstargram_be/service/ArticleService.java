@@ -116,14 +116,12 @@ public class ArticleService {
 
   public Set<ArticleResponseDto> readSearchArticleList(String hashtag) {
     List<Article> allByHashtagList = articleRepository.findAllByOrderByCreatedAtDesc();
-    System.out.println("해시태그~"+hashtag);
     Set<ArticleResponseDto> articleResponseDtoList = new LinkedHashSet<>();
 
     for (Article article : allByHashtagList){
       for (String tag : article.getHashtagList()){
         if(tag.contains(hashtag)){
           articleResponseDtoList.add(new ArticleResponseDto(article));}
-        System.out.println(article.getArticlesId());
       }
     }
     return articleResponseDtoList;

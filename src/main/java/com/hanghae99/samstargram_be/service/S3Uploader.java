@@ -24,7 +24,6 @@ import java.util.UUID;
 public class S3Uploader {
 
 	private final AmazonS3Client amazonS3Client;
-	private final ArticleRepository articleRepository;
 
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucket;
