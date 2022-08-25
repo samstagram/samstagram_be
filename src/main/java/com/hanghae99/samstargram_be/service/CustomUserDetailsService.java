@@ -26,14 +26,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		return memberRepository.findByUsername(username)
 				.map(this::createUserDetails)
-				.orElseThrow(() -> new UsernameNotFoundException(username + " -> 데이터베이스에서 찾을 수 없습니다."));
+				.orElseThrow(() -> new IllegalArgumentException(username + " -> 데이터베이스에서 찾을 수 없습니다."));
 	}
 
 	private UserDetails createUserDetails(Member member) {
 		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getAuthority().toString());
 
 		return new User(
-				String.valueOf(member.getId()),
+				String.valueOf(member.getMemberId()),
 				member.getPassword(),
 				Collections.singleton(grantedAuthority)
 		);

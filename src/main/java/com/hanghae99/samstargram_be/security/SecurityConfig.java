@@ -6,6 +6,7 @@ import com.hanghae99.samstargram_be.security.jwt.JwtAccessDeniedHandler;
 import com.hanghae99.samstargram_be.security.jwt.JwtAuthenticationEntryPoint;
 import com.hanghae99.samstargram_be.security.jwt.JwtSecurityConfig;
 import com.hanghae99.samstargram_be.security.jwt.TokenProvider;
+import com.hanghae99.samstargram_be.service.CustomOAuth2UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,6 +24,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final TokenProvider tokenProvider;
 	private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 	private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
+	private final CustomOAuth2UserService customOAuth2UserService;
 
 	@Bean
 	public PasswordEncoder passwordEncoder() {
@@ -55,10 +58,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				.authorizeRequests()
 				.antMatchers("/**").permitAll()
-				.antMatchers("/sign/**").permitAll()
 				.anyRequest().authenticated()
 
 				.and()
-				.apply(new JwtSecurityConfig(tokenProvider));
+				.apply(new JwtSecurityConfig(tokenProvider))
+
+				.and()
+				.oauth2Login()
+				.userInfoEndpoint()
+				.userService(customOAuth2UserService);
 	}
 }
